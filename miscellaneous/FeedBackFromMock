@@ -1,0 +1,19 @@
+Things to work on:
+Think out loud. I had no clue what you were thinking. This is one of the most important part of the interview. The interviewer is looking for how you approach the problem and not just if you can solve the problem.
+
+Never start coding before discussing the solution with the interviewer. You should code only after the interviewer asks you to. There is a possibility that the interviewer wants a better solution or it is even possible that the solution that you’re thinking might be wrong. 
+
+Spend some time thinking before asking for a hint.
+
+During a remote interview, write everything on the shared editor and not on a notebook which the interviewer can’t see. The interviewer wants to see how you’re approaching the problem.
+
+Don’t say that you think that the time complexity would be x. You cannot guess the time complexity during the interview. Calculate (if you don’t know already) and then say what will be the time complexity (explain, if required).
+
+Avoid terms like preorder, inorder, etc to avoid confusion. Better to talk in terms of first principles like ‘I’ll recursively traverse the tree’ and then you can mention the order (root->left->right, etc) while explaining the solution.
+
+Try to speak what you are doing while coding. Not line by line but at least in parts to help the interviewer follow through the code.
+Go through your code again and do a dry run before saying that you’re done.
+
+Avoid asking the interviewer if they think that will this work or not. This signifies that you’re not confident and you didn’t put the effort in verifying everything. If you’re confident then let the interviewer know that you think it’ll work. The interviewer will let you know if it doesn’t.
+
+You should practice coding a few problems before your Amazon interview.

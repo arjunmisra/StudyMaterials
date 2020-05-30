@@ -1,0 +1,10 @@
+jq tutorial
+
+.  -- makes it pretty
+
+. -c  -- makes it compact
+
+.[] --gets the array with all objects
+
+.[0] --gets the 0th object from the array
+

@@ -1,0 +1,20 @@
+##Sessions (https://machinesaredigging.com/2013/10/29/how-does-a-web-session-work/)
+
+Sessions help the server identify the user. When a client logs in, a session id is created and is kept in the cookies of the browser. This session id is mapped to the user id in the server data store. Then the control goes to the application logic that is going get any repective user data from the db and then the user is displayed the personalized content.
+
+
+->Keeping you logged in is one main use of the session
+->but sessions can also be used to save temporary data that are completely independent of the logged in state.
+->You could decide to put some data in session just because it is quicker to access.Also as a side note, from the server’s point of view : one connection = one session id. So if you connect from two different browsers, the server will create two session ids. You should remember that the session id only identifies your connection to the server. All the user identification logic is handled by the application.
+
+
+HTTP requests are completely stateless. This means when you make the first HTTP request to login, the next time you request for another HTTP request, it doesnt know who you are(so technically you have to login again), sessions help in resolving this becoz you send the session id the next time you request.
+
+If there are multiple apps running, the load balancer could accidentally transfer back the request to some other app,
+
+
+
+################
+To handle race condition in db's, we use distributed locks. It is always a good idea to use it in db's rather than applications since there can be multiple apps running. When a application makes a request to paytm for payment, the paytm app keeps a track of the application.
+
+Sessions are maintained in db's but the session id is maintained in cookies, so the next time you login, the status of the session id is checked in the session datastore in the backend and if it is active, we dont request the user to login.

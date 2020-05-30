@@ -1,0 +1,68 @@
+Springboot
+
+Spring Notes:
+
+##Dependency injection
+
+Dependency injection is basically providing the objects that an object needs (its dependencies) instead of having it construct them itself. It's a very useful technique for testing, since it allows dependencies to be mocked or stubbed out. Dependency Injection in Java is a way to achieve Inversion of control (IoC) in our application by moving objects binding from compile time to runtime. 
+
+
+#Application Context
+
+all Spring beans are managed - they "live" inside a container, called "application context". In web apps, there is a startup listener which has access to the application context. This application context instantiates  the objects (singleton). We dont have to specifically mention Application context declaration in our main class, it taken care by default in springboot.
+
+
+
+##Configuration 
+
+Use @Configuration annotation on top of any class to declare that this class provides one or more @Bean methods and may be processed by the Spring container to generate bean definitions and service requests for those beans at runtime.
+
+Create a service -> Create a conifguration class -> Create a bean method of the service return type -> Go to test class and get the bean from app context.
+
+https://howtodoinjava.com/spring-core/spring-configuration-annotation/
+
+##Thread safe singleton pattern
+
+public class ThreadSafeSingleton {
+
+    private static ThreadSafeSingleton instance;
+    
+    private ThreadSafeSingleton(){}
+    
+    public static synchronized ThreadSafeSingleton getInstance(){
+        if(instance == null){
+            instance = new ThreadSafeSingleton();
+        }
+        return instance;
+    }
+    
+}
+
+##Types of beans - singleton or prototype (They are opposite of each other)
+##Spring IOC
+Spring IoC is the mechanism to achieve loose-coupling between Objects dependencies. To achieve loose coupling and dynamic binding of the objects at runtime, objects dependencies are injected by other assembler objects.
+
+##Springboot application @SpringbootApplication
+
+Spring Boot SpringApplication class is used to bootstrap and launch a Spring application from a Java main method. This class automatically creates the ApplicationContext from the classpath, scan the configuration classes and launch the application. This class is very helpful in launching Spring MVC or Spring REST application using Spring Boot.
+
+##Problem Statement -- You have a deque which is in a method of a service class. You have to make that deqeue thread safe. You have a DAO which access the method and updates the deque. Assume it is Employee DAO. You can also have Student DAO which updates the deque. So you have to make sure that the service class or dequeu is extendable. Lastly, make sure that the dequeue is testable with mockito. How would you do that?
+
+Solution: 
+
+Design a service class and declare the the dequeue inside the constructor or create bean methods ( and use autowire to fetch the instance ) this will help in making the class testable. To make the data structure threadsafe, use concurrent linkedlist or dequeue. Concurrent divides the list into chunks and makes only that part locked. This takes care of thread safe criteria. To make it generic, we can use generics and instantiate that dequeue depending on that.
+
+
+
+1) @RestController -- to mark the class as a controller and @RequestMapping -url mapped to requests
+When spring starts a classpath scan, it automcatically sets this contoller based on its annotation.
+
+
+Use GSON library whenever you have to serialize a java object to string.
+
+
+When we use @Service, spring is going to create a singleton of that class. We also need to declare a instance of that in the controller so when spring will create a instance of the controller, it will inject that previously created instance of service to it.
+
+We use @Configuration so that Spring creates a Spring bean in the application context.
+
+We also use @PropertySource to define the location of our properties file. Otherwise, Spring uses the default location (classpath:application.properties).

@@ -1,0 +1,89 @@
+cassandra attains most of its speed by data modelling
+master slave architecture leads to SPOF's
+
+c* goes for horizontal scaling and is reliable. It has no leader/follower concept 
+
+keyspaces are like databases and it contains tables
+
+data in cassandra can be grouped by a particular column like state. This is the partition key . It will decide how the data will be placed in the ring.
+
+We cant make the state as the only primary key since its not that unique. Thus, we us id also.
+
+Partition key is really imp since it helps in puttin the data in the 1000 node ring. since the hashing algorithm that decides the node is O(1)... it is really fast to find out any data at O(1)
+
+Ordering and uniqueness is maintained by clustering columns. The clustering column helps in sorting
+
+We cannot change the PK from a existing data model.
+
+if the PK((state),city,name,id),then you query will be with parameters in the order of the PK. You need to mention the Partition key for faster search.
+
+The data is sorted as per the clustering column, hence when we do a search it is a binary search then a linear search. So, it is super fast
+
+
+The ring is called the cassandra cluster. The coordinator node will redirect the request to another node. Each node holds upto a range of values.
+
+Any node in the ring can serve the request from a client. Ex if a write req comes, then any node can act as a coordinator and redirect the request to the concerned nodes.
+
+read up about vnodes.
+
+snitches are used to determine relative host proximity and it gathers info about the network topology and routes requests effectively.
+
+RF=3 recommended
+
+A replication factor greater than one...
+
+1)widens the range of token values a single node is responsible for.
+2)causes overlap in the token ranges amongst nodes.
+3)requires more storage in your cluster.
+
+consistency level = one,quorom(51 %), all
+
+In case of quorom, if a data is being written asynchronously to 3 nodes, then 51 % or 2 nodes need to ack it.
+
+We have read/ write CL
+
+Hinted Handoff - if there is an issue to write data in a node, and for some reason it fails, then the coordinator will store it locally for the down node until it comes back up.
+
+Read repair -- it is the process of making sure the data is consistent accross all nodes. In read CL=all, the fastest node returns data to the coordinator node and then the other nodes in quorom will return their data. It will do the checksum and then check if the data is consistent, if not then the data with the latest timestamp will prevail. The copy the latest data to the other nodes.
+
+Run nodetool repair atleast once in 10 days to sync all data in cluster
+
+read_repair_chance Sets the probability which Cassandra will perform a read repair with a consistency level less than ALL.
+
+ 
+
+
+
+
+Does one sstable or memtable refer to a single partition?
+
+When a data is written in a node, it is written in 2 places. The HDD and the RAM. In the RAM, the data will be placed as per partition key and it would be sorted by the clustering column. The data written in commit log will not be sorted.From the RAM(memtable) it would be flused to the sstable and it would be immutable and the commit log would be removed. When we have multiple sstables of the same partition, we compact them into one. If there are multiple identical tuples with one of the properties changed, the last write wins.
+
+The purpose of the commit log is to replay if a crashed node restarts.
+
+Watch the Internal Architecture: Read-Path video. Read path is to memtable first if not, goes to bloom filter to see if the partition key exists then goes to in memory cache table to get the offset of the ss table. If not found, checks partition summary table to get the approximate start position of index range and then goes to parition index table to get the offset of the ss table to fetch the partition key. 
+
+In compaction, the 2 ss tables merge together to get a single ss table that is new and has removed/updated data.
+
+clustering key is used mainly for sorting so fields like timestamp is preffered.
+
+
+gossip vs snitch
+
+
+
+The Murmur3Partitioner can handle something like 2^64 (-2^63 to +2^63) partitions. Cassandra is designed to be very good at storing large amounts of data and retrieving by partition key. There are restrictions on the number of columns within a partition (2 billion), but for total number of partitions I think you'll be fine with what you have.
+
+
+It’s recommended to keep the number of rows within a partition below 100,000 items and the disk size under 100 MB.
+A single column value is limited to 2 GB (1 MB is recommended).
+
+
+When Not to Use An Index?
+
+On high-cardinality columns because you then query a huge volume of records for a small number of results
+On a frequently updated or deleted column
+
+
+
+Collections are not meant to be large. They are not replacement for tables. PromotionDetails object in promo

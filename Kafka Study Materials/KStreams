@@ -1,0 +1,70 @@
+It is a std java app. No need to create a separate cluster.
+
+Source processor, sink processor
+
+internal topics are created in streams and they are maintained by kafka streams
+
+If our topic has 2 partitions, then we can launch upto 2 instances in our application in parallel.
+
+##KStreams
+
+All inserts and is infinite.
+ 
+
+##KTables
+
+All upserts on non null values
+deletes on null values
+similar to a table 
+
+
+##MapValues & Map difference
+
+Mapvalues only affects the values and it does not change keys and hence doesnt trigger repartition
+
+Map affects both keys and values and thus triggers repartition.This is for kstreams only.
+
+##Filter
+
+stream.filter((key,value)->value>0); -- Does not change keys/values. It is for KStreams and KTables.
+
+##FlatMapValues & FlatMap
+
+FlatMapValues does not change keys and is for KStreams only. It was used to split the sentence into multiple words.
+
+##Branch
+
+stream.branch()
+
+This splits the stream based on the conditions(predicates). We get multiple streams in this order.
+
+##SelectKey
+
+This is used to assign a new key to the record.
+
+##Writing to kafka
+
+##to: This is a terminal operation. Writes the records to a topic.
+
+##through: writes to a topic and gets a stream/table from the topic for further processing.
+
+##Transforming a KTable to KStream
+
+table.toStream()
+
+
+##Transforming a KStream to KTable
+
+1)stream.groupByKey().count()
+
+2) Write back to kafka and read as a KTable
+
+stream.to("topic")
+
+KTable<String,String> table=builder.table("topic")
+
+###########################################################
+
+KGroupedStream gets created after GroupBy/GroupByKey() operation
+
+count() - counts the number of records grouped by key
