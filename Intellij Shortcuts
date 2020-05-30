@@ -1,0 +1,34 @@
+cmd + o - > enter class name
+shift + cmd +o -> file names
+option+ cmd +o ->search for symbols 
+
+shift + shift= search eevrywhere [shows classes, files and symbols]
+
+cmd + e = shows recent files
+
+cmd +1 = go to the navigation window
+shift + cmd + f12 = hides all windows
+cmd + w = closes window
+
+option+ upperKey= selection of code 
+shift+cmd+v = gives you all the copied history
+cmd+d = duplicate a line
+control+ cmd+g = After selecting a word,you can type the cmd and select all the words.
+
+cmd + option+ l =indentation for entire code
+
+cmd+shift+a = choose an action
+
+1)type - clean -- for code cleanup
+this will refactor your code
+
+2) type - inspection by name
+then type - questionable name -- this will check if you have any weird names as per java naming convention
+
+
+To type something in json:-
+
+1)option +enter = then choose json
+2)option + enter = edit json
+
+cmd + b = takes you to the declaration. In the declaration, cmd+b shows all implementation.
