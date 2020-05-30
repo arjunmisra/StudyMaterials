@@ -1,0 +1,72 @@
+##How does an Hashmap work?
+
+A hashmap works like this (this is a little bit simplified, but it illustrates the basic mechanism):
+
+It has a number of "buckets" which it uses to store key-value pairs in. Each bucket has a unique number - that's what identifies the bucket. When you put a key-value pair into the map, the hashmap will look at the hash code of the key, and store the pair in the bucket of which the identifier is the hash code of the key. For example: The hash code of the key is 235 -> the pair is stored in bucket number 235. (Note that one bucket can store more then one key-value pair).
+
+When you lookup a value in the hashmap, by giving it a key, it will first look at the hash code of the key that you gave. The hashmap will then look into the corresponding bucket, and then it will compare the key that you gave with the keys of all pairs in the bucket, by comparing them with equals().
+
+Now you can see how this is very efficient for looking up key-value pairs in a map: by the hash code of the key the hashmap immediately knows in which bucket to look, so that it only has to test against what's in that bucket.
+
+Looking at the above mechanism, you can also see what requirements are necessary on the hashCode() and equals() methods of keys:
+
+If two keys are the same (equals() returns true when you compare them), their hashCode() method must return the same number. If keys violate this, then keys that are equal might be stored in different buckets, and the hashmap would not be able to find key-value pairs (because it's going to look in the same bucket).
+
+If two keys are different, then it doesn't matter if their hash codes are the same or not. They will be stored in the same bucket if their hash codes are the same, and in this case, the hashmap will use equals() to tell them apart.
+
+
+########
+https://stackoverflow.com/questions/2265503/why-do-i-need-to-override-the-equals-and-hashcode-methods-in-java (check the 2nd answer)
+########
+
+##Difference between equals and ==
+
+For Strings, they have their own implementation of equals, thus equals check for content and not reference
+We can use == operators for reference comparison (address comparison) and .equals() method for content comparison. In simple words, == checks if both objects point to the same memory location whereas .equals() evaluates to the comparison of values in the objects.
+
+
+For Objects,
+== and equals are same if not overridden.
+
+	Person p1=new Person(21,"Arjun"); 
+	Person p2=new Person(21,"Arjun");
+	Person p3=p1;
+	System.out.println(p1.equals(p2));  //returns false
+    System.out.println(p1.equals(p3));	//returns true
+
+Because, p1 & p2 are different objects and you have not overridden the equals method & hashcode, it will return different hashcodes & false for equals.
+
+
+
+
+##Difference between string literal and string objects (https://stackoverflow.com/questions/3297867/difference-between-string-object-and-string-literal)
+
+When you use a string literal the string can be interned, but when you use new String("...") you get a new string object.
+
+In this example both string literals refer the same object:
+
+String a = "abc"; 
+String b = "abc";
+System.out.println(a == b);  // true
+
+
+Here, 2 different objects are created and they have different references:
+
+String c = new String("abc");
+String d = new String("abc");
+System.out.println(c == d);  // false
+
+String Objects force the JVM to create a new object in the heap irrespective of the fact that the string is already present in the string pool. You can read more here --> https://www.journaldev.com/797/what-is-java-string-pool
+
+
+
+################################
+TreeMap
+################################
+
+Refer the link -> https://www.dineshonjava.com/internal-working-of-treemap-in-java/
+
+
+TreeMap doesnt use hashing or equals method to store the key & value pairs. It uses red black tree and it is self balancing. So, its methods like remove, contains and put take at max O(log n). TreeMap uses comparable interface in the key and sorts the key - value pairs.
+
+

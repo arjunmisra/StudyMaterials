@@ -1,0 +1,67 @@
+docker run to run a new container
+
+##docker run hello-world
+
+docker ps to see running containers 
+docker ps -a to see exited containers
+
+docker images to see info about images
+
+docker container ls -- lists all the active containers
+
+
+#######################################
+
+When we give the command -- docker run hello-world
+
+The docker client makes API calls to docker daemon. The daemon checks the image in the local repo. If it doesnt exist, it goes to docker hub and pulls the hello-world image. Then it spins up a new container.
+
+Images -- Stopped Containers
+Containers -- Running Images
+
+#####################################
+
+
+docker pull <package name> -- to pull an image
+
+docker pull ubuntu
+docker pull ubuntu:14.04 
+
+docker images -- lists all the images
+
+
+docker rmi <package name> -- to remove an image
+
+docker rmi ubuntu:14.04
+
+######################################
+
+docker start <container> -- starts a container
+
+
+docker stop <container> --stops a container
+
+
+When we stop it and start it again, its data will persist since data is stored in docker host.
+
+docker rm <container> --removes a container
+
+
+#########################################
+
+
+Manager Nodes -- They are HA.They have a leader. They assign task to the worker nodes.If a manager node recieves a task, it proxies it to the leader node.
+Workder Node -- They are used to execute tasks.
+Services -- They help in scaling the app
+
+#########################################
+
+
+docker image build -t offersapitestv1 .
+
+docker run  -p 8080:8080 -v /tmp:/apps/conf <appname>
+
+
+#########################################
+
+

@@ -1,0 +1,183 @@
+docker run to run a new container
+
+##docker run hello-world
+
+docker ps to see running containers 
+docker ps -a to see exited containers
+
+docker images to see info about images
+
+docker container ls -- lists all the active containers
+
+
+#######################################
+
+When we give the command -- docker run hello-world
+
+The docker client makes API calls to docker daemon. The daemon checks the image in the local repo. If it doesnt exist, it goes to docker hub and pulls the hello-world image. Then it spins up a new container.
+
+Images -- Stopped Containers
+Containers -- Running Images
+						
+#####################################
+
+
+docker pull <package name> -- to pull an image
+
+docker pull ubuntu
+docker pull ubuntu:14.04 
+
+docker images -- lists all the images
+
+
+docker rmi <package name> -- to remove an image
+
+docker rmi ubuntu:14.04
+
+######################################
+
+docker start <container> -- starts a container
+
+
+docker stop <container> --stops a container
+
+
+When we stop it and start it again, its data will persist since data is stored in docker host.
+
+docker rm <container> --removes a container
+
+
+#########################################
+
+docker run -d  --name web -p 80:8080 nigelpoulton/pluralsight-docker-ci
+
+-d means running in background
+--name has to be unique
+
+-p specifies the port number
+
+then we tell the name of the image.
+
+docker stop web
+
+docker start web
+
+docker run -d -P --name static-site prakhar1989/static-site
+
+-P will publish all exposed ports to random ports
+
+##############
+Now we can see the ports by running the 
+
+docker port static-site
+
+80/tcp -> 0.0.0.0:32769
+443/tcp -> 0.0.0.0:32768
+
+#############
+
+#########################################
+
+
+Manager Nodes -- They are HA.They have a leader. They assign task to the worker nodes.If a manager node recieves a task, it proxies it to the leader node.
+Workder Node -- They are used to execute tasks.
+Services -- They help in scaling the app
+
+#########################################
+
+
+Docker hub contains registry which contains repos which contains images. We pull the images into our docker host.
+
+
+
+#########################################
+
+docker image build -t psweb .
+
+This builds an image with the tag psweb.
+
+docker container run -d --name web1  -p 8080:8080 psweb
+
+this runs the container on the background with the name web1 and is exposed on port 8080.
+
+docker start web1
+
+docker stop web1
+
+docker exec -it web2 python
+
+this makes the container interactive
+
+
+#########################################
+
+
+to get a git repo working in docker
+
+docker image build -t psweb <git clone link>
+
+
+
+##########################################
+
+Multi stage build -- pretty imp
+
+if you are building a image which has a lot of components then instead of putting all of that in prod, you can just take out the resultant jars out of those components and build an image from that. That size of the image will be much less. 
+
+
+
+###########################################
+
+Stopping a container does not destroy any of its existing data.
+
+ctrl+p+q helps exiting out of a container without killing it.
+
+
+###########################################
+
+Logging
+
+two types --  daemon logs and container/app logs
+
+to get the logs of a container do :
+
+docker logs <container>
+
+###########################################
+
+This will remove all the exited containers 
+
+docker container prune
+
+###########################################
+
+Swarm Mode
+
+Initalizes swarm mode in docker from single engine mode
+
+docker swarm init
+
+Prints all the dockers
+
+docker node ls
+
+The first node by default becomes the mgr.
+to get the managers join in the swarm, we need the join token:
+
+docker swarm join-token manager
+
+After getting the join token, go to node 2 and run it. It will join the cluster
+
+
+To get the worker token to create workers:
+
+docker swarm join-token worker
+
+Go to node4 and run it.
+
+
+#######################################################
+
+
+
+

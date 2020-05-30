@@ -1,0 +1,78 @@
+dotnet new console  -- creates new application
+dotnet new xunit 
+
+
+################
+
+'ref' keyword before a object makes the object change from value type to ref type. You can also use 'out'
+You can use ref keyword in object and int. It will pass by ref
+
+In switch case, we can put conditions:
+
+var d when d > 90
+
+##################
+
+super() in java is base() in C#
+
+public class Book: NamedObject{
+
+	public Book():this(name){
+		//this will call the constructer below it
+	}
+	public Book(string name):base(name){
+	....
+	// the base(name) will call the constructor in in the parent class
+	}
+
+}
+
+
+##############################
+
+Steps to make your code OOP:
+
+1)Identifying classes
+
+2)Separating responsibilities
+	- To reduce coupling, extract dependencies into their own classes. Minimizing coupling makes an application easier to test and maintain because the dependencies are encapsulated. For example, each of our entity classes had Retrieve and Save methods that would access a data store.So, we removed the methods to a repository class, so now we have encapsulated the methods from the main entity. 
+
+	-Cohesion is a measure of how related the members of a class are to the purpose of the class. To increase cohesion, extract unrelated members into their own classes. Maximizing cohesion makes an application easier to understand, test, and maintain because each class is more focused on a single purpose. For example, there are quite a few properties and business rules for managing an address. Improve cohesion by moving the responsibility for managing address into a separate class. 
+
+3)Establishing relationships with classes
+	- Collaboration ("uses a")
+		When we use a customer object to get order related details
+	- Composition("has a")
+		How order details are a part of Order.
+	- Inheritance("is a")
+
+
+4)Leveraging reuse
+	
+	Inheritance
+	- If we want to override the methods
+		public override string ToString(){
+            return this.FirstName;
+        }
+
+ #######################################
+ Virtual Methods have default implementation, it can be used in abstract or concrete classes, it is optionally overriden by dervied class.
+
+ sealed = final in java
+
+ We can extract commonality and put them in library. We can also use inheritance
+
+#########################################
+
+Async & Await
+
+
+1) When we use await keyword, it helps in giving you a potential result, validates the success of the operation and it continues from that point
+
+You should create a method as <async void> type only for event handlers
+
+##############################
+
+Task.Run(()=>{
+	//The code here will run on a different thread. So this takes any activity and loads it on a thread from the thread pool.
+})

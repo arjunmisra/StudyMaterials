@@ -1,0 +1,71 @@
+##ElasticSearch
+
+bin/elasticsearch -Ecluster.name=esCluster -Enode.name=my_first_node
+
+http://localhost:9200/_cat/health?v&pretty
+
+http://localhost:9200/_cat/nodes?v&pretty
+
+##Elastic Search Notes
+
+1) A web crawler to get all the docs 
+2)Indexing the docs with their relevant terms to make sure they are indexed in a inverted index
+3)Giving ranks to the docs based on the search terms
+4) Search the docs based on the search terms and the results will be based on the relevance
+
+
+##Creating a index in ES
+
+curl -XPUT 'http://localhost:9200/customers?&pretty' 
+
+##Creating a document in in index
+
+curl -XPUT 'http://localhost:9200/products/beauty/13697439?pretty' -H 'Content-type:application/json' -d '
+→ {
+→ "tcin": "13697439",
+→ "launch_date_time": "2010-08-29T07:00:00Z",
+→ "item_state": "READY_FOR_LAUNCH"
+→ }
+→ '
+
+##Get the document
+
+curl -XGET 'http://localhost:9200/products/beauty/14414767?pretty&_source=false'
+
+
+## Update a doc
+
+We can use -XPUT and update the json body by specifying the id of the doc
+
+##Partially updating the doc
+
+curl -XPOST 'http://localhost:9200/products/beauty/14414767/_update?pretty' -H 'Content-type:application/json'  -d '
+{
+  "doc": {
+    "color": "black"
+  }
+}
+'
+
+
+
+
+##To check if a doc exists or not?
+
+curl -i -XHEAD 'http://localhost:9200/products/beauty/13697439
+
+## To Delete a index 
+
+curl -i -XDELETE 'http://localhost:9200/products/beauty/13697439?pretty'
+
+##Bulk operations
+
+curl -XPOST 'http://localhost:9200/products/beauty/14414767/_bulk?pretty' -H 'Content-type:application/json'  -d''
+
+this will help us do bulk operations like create, delete etc
+
+
+
+##How ES works?
+
+When we write data in ES, we specify the index and the doc type for the data. Once inserted, ES creates inverted index that maps words/terms to the docs.  ES also has a algorithm that gives scores to the words and based on the score the docs are retrieved. We query the ES using DSL query.

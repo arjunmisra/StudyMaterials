@@ -1,0 +1,44 @@
+Git Study Notes
+
+git diff <commit id 1> <commit id 2>
+
+git diff --staged // compares staging area files with the latest commit gi 
+
+git diff file   // it compares the file in work directory and staging area
+
+git log --stat // Gives info about the files also
+
+git log --graph // Shows the log of the files
+
+
+
+
+After a merge, the files from another branch lose thier parent. To compare the changes, use 
+
+git show <commit id>
+
+git merge branch1 branch2
+
+
+git stash -- if you have unstaged changes in your branch and you want to merge changes from main repo, themn stash them and then later apply back.
+
+git stash -- stashes the changes in local
+git pull origin master
+git stash show -- shows the changes in stash
+git stash pop -- applies the changes in current branch
+git stash drop -- drops the latest stash
+
+
+###############################################################
+
+git pull origin master = git fetch origin + git merge origin/master master
+
+if you have made a commit in the github repo, then your origin is one commit ahead of your local. If there is a conflict like the current commit in both the repos(local and github) are different, then use - git fetch origin. This creates a separate branch and later you can merge them.
+
+
+##################################################################
+
+
+git pull upstream master 
+
+This will pull all the changes in your local repo from the upstream.

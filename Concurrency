@@ -1,0 +1,28 @@
+####################
+Concurrency
+####################
+
+
+
+##What is the difference between concurrency, parallelism and asynchronous methods?
+
+Concurrent and parallel are effectively the same principle as you correctly surmise, both are related to tasks being executed simultaneously although I would say that parallel tasks should be truly multitasking, executed "at the same time" whereas concurrent could mean that the tasks are sharing the execution thread while still appearing to be executing in parallel.
+
+Asynchronous methods aren't directly related to the previous two concepts, asynchrony is used to present the impression of concurrent or parallel tasking but effectively an asynchronous method call is normally used for a process that needs to do work away from the current application and we don't want to wait and block our application awaiting the response.
+
+For example, getting data from a database could take time but we don't want to block our UI waiting for the data. The async call takes a call-back reference and returns execution back to your code as soon as the request has been placed with the remote system. Your UI can continue to respond to the user while the remote system does whatever processing is required, once it returns the data to your call-back method then that method can update the UI (or handoff that update) as appropriate.
+
+From the User perspective, it appears like multitasking but it may not be.
+
+
+
+##Types of concurrent data structures:
+1) Concurrent Hashmap 2)CopyOnWriteArrayList 3)BlockingQueue
+
+https://medium.com/coding-corpus/concurrent-collections-in-java-9b131e41b3ad
+
+##Blocking Queue
+
+It is used to implement the producer consumer problem.
+
+http://tutorials.jenkov.com/java-util-concurrent/blockingqueue.html

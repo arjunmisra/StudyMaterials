@@ -1,0 +1,8 @@
+To send mails to outlook from centos:
+
+Go to /etc/postfix/main.cf
+
+uncomment and add this --  relayhost = smtp.xxxxx.com
+
+
+then run this -- echo "something" | mailx -s "subject" arjunmisra195@gmail.com
